@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.sql
+*.sql.gz
+*.p12
+*.pfx
+*.pyc
+__pycache__/
+node_modules/
+dist/

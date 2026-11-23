@@ -1,0 +1,4 @@
+services:
+  frontend:
+    ports:
+      - "${HTTP_BIND_IP:?Define la IP privada de la NIC, o 127.0.0.1 para pruebas}:80:80"

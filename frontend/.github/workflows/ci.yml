@@ -1,0 +1,36 @@
+name: CI Frontend
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  construir:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v4
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Instalar dependencias
+        run: npm ci
+      - name: Compilar frontend
+        env:
+          VITE_API_URL: http://localhost:5000/api/v1
+        run: npm run build
+
+  imagen:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v4
+      - name: Comprobar imagen del frontend
+        run: docker build --build-arg VITE_API_URL=http://localhost:5000/api/v1 -t alojamientos-frontend:ci .
